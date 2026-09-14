@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ganesh Chathurthi — Digital Temple Experience</title>
+<meta name="description" content="An immersive digital Ganesh Chathurthi celebration — blessings, pooja, and aarti reimagined.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Baloo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ================= LOADING SCREEN ================= -->
+<div id="loading-screen" aria-live="polite">
+  <div class="loading-ring"></div>
+  <div class="loading-symbol">🙏</div>
+  <p class="loading-text">Ganpati Bappa Morya</p>
+  <p class="loading-sub">the temple doors are opening…</p>
+</div>
+
+<!-- ================= WELCOME / ENTER OVERLAY ================= -->
+<div id="welcome-overlay" class="hidden">
+  <div class="welcome-card">
+    <div class="welcome-glow"></div>
+    <span class="welcome-icon">🪔</span>
+    <h1>Welcome to the Digital<br>Ganesh Chathurthi Experience</h1>
+    <p>A living shrine of light, sound and devotion — step in and begin.</p>
+    <button id="enter-btn" class="btn btn-primary">
+      <span class="btn-icon">🔔</span> Enter the Celebration
+    </button>
+    <p class="welcome-hint">Sound will play once you enter</p>
+  </div>
+</div>
+
+<!-- ================= AMBIENT CANVAS (particles) ================= -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- ================= CURSOR GLOW (desktop) ================= -->
+<div id="cursor-glow"></div>
+
+<!-- ================= NAVIGATION ================= -->
+<nav id="navbar">
+  <div class="nav-brand">
+    <span class="nav-om">🕉️</span> <span class="nav-title">Bappa's Temple</span>
+  </div>
+  <button id="nav-toggle" aria-label="Toggle navigation menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-links">
+    <li><a href="#hero" data-nav>🏠 Home</a></li>
+    <li><a href="#blessing" data-nav>🙏 Blessing</a></li>
+    <li><a href="#about" data-nav>🌺 About</a></li>
+    <li><a href="#interactive-ganesha" data-nav>🐘 Ganesha</a></li>
+    <li><a href="#pooja" data-nav>📿 Pooja</a></li>
+    <li><a href="#aarti" data-nav>🪔 Aarti</a></li>
+  </ul>
+</nav>
+
+<!-- ================= SOUND CONTROL ================= -->
+<button id="sound-toggle" aria-label="Toggle sound">
+  <span id="sound-icon">🔊</span>
+</button>
+
+<main>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section id="hero">
+    <div class="hero-bg" style="background-image:url('assets/images/ganesh-hero.png')"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-rays"></div>
+    <div class="hero-vignette"></div>
+    <div id="hero-petals-diyas" class="floaty-layer"></div>
+
+    <div class="hero-content">
+      <p class="hero-namaste">🙏</p>
+      <h1 class="hero-title">
+        <span class="glow-gold">Happy</span>
+        <span class="glow-multi">Ganesh Chathurthi</span>
+      </h1>
+      <p class="hero-subtitle">
+        May Lord Ganesha remove all obstacles and fill your life with
+        wisdom, happiness, prosperity and success.
+      </p>
+      <p class="hero-chant">🐘 Ganpati Bappa Morya! 🐘</p>
+
+      <div class="hero-buttons">
+        <a href="#blessing" class="btn btn-glow-border">
+          <span class="btn-icon">🙏</span> Receive Digital Blessing
+        </a>
+        <a href="#pooja" class="btn btn-glow-border btn-alt">
+          <span class="btn-icon">🪔</span> Begin Digital Pooja
+        </a>
+      </div>
+    </div>
+
+    <div class="scroll-cue">
+      <span>scroll to enter the temple</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ================= DIGITAL BLESSING ================= -->
+  <section id="blessing" class="section">
+    <div class="section-inner">
+      <h2 class="section-title">✨ Receive Your Digital Blessing ✨</h2>
+      <p class="section-lead">Enter your name and receive a special blessing from Lord Ganesha.</p>
+
+      <div class="blessing-box glass-card">
+        <label for="name-input" class="sr-only">Your name</label>
+        <input type="text" id="name-input" placeholder="Enter your name (e.g. Sathish)" autocomplete="off">
+        <button id="blessing-btn" class="btn btn-glow-border">
+          <span class="btn-icon">🙏</span> Receive Blessing
+        </button>
+        <p id="blessing-warning" class="warning hidden">✨ Please share your name so Bappa knows who to bless ✨</p>
+      </div>
+
+      <div id="blessing-card" class="blessing-result glass-card hidden">
+        <div class="blessing-sparkles"></div>
+        <p id="blessing-text" class="blessing-text"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about" class="section">
+    <div class="section-inner">
+      <h2 class="section-title">🌺 About Ganesh Chathurthi</h2>
+      <p class="section-lead">
+        Ganesh Chathurthi marks the birth of Lord Ganesha — the beloved elephant-headed
+        god of new beginnings — celebrated across India with devotion, music and community.
+      </p>
+
+      <div class="card-grid">
+        <div class="glow-card" data-gradient="green-blue">
+          <span class="glow-card-icon">🕉️</span>
+          <h3>Why We Celebrate</h3>
+          <p>Ganesh Chathurthi honors the day Lord Ganesha was born to Shiva and Parvati.
+             Families welcome him home as an idol, offer daily prayers, and after 1 to 11 days,
+             bid him farewell through visarjan — a symbol of life's cycles of arrival and release.</p>
+        </div>
+        <div class="glow-card" data-gradient="violet-pink">
+          <span class="glow-card-icon">🐘</span>
+          <h3>Significance of Lord Ganesha</h3>
+          <p>Known as the remover of obstacles and the god of beginnings, Ganesha represents
+             wisdom, intellect and prosperity. He is invoked before any new venture, journey
+             or celebration, as a blessing for clarity and success.</p>
+        </div>
+        <div class="glow-card" data-gradient="orange-red">
+          <span class="glow-card-icon">🪔</span>
+          <h3>Traditional Celebrations</h3>
+          <p>Homes and pandals install a Ganesha idol, perform daily pooja with flowers and
+             durva grass, offer modaks, sing bhajans and aarti, and take part in vibrant
+             processions before the final visarjan into water.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= INTERACTIVE GANESHA ================= -->
+  <section id="interactive-ganesha" class="section">
+    <div class="section-inner">
+      <h2 class="section-title">✨ Touch the Divine ✨</h2>
+      <p class="section-lead">Tap Lord Ganesha to receive his blessing, light and sound.</p>
+
+      <div class="ganesha-stage">
+        <div class="ganesha-aura"></div>
+        <div id="ganesha-offerings" class="offerings-ring"></div>
+        <button id="ganesha-touch" aria-label="Touch Ganesha for a blessing">
+          <img src="assets/images/ganesh-portrait.png" alt="Lord Ganesha">
+          <div class="ganesha-pulse"></div>
+        </button>
+        <div id="ganesha-chant" class="ganesha-chant hidden">Ganpati Bappa Morya!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DIGITAL POOJA ================= -->
+  <section id="pooja" class="section">
+    <div class="section-inner">
+      <h2 class="section-title">📿 Digital Pooja</h2>
+      <p class="section-lead">Offer something with devotion.</p>
+
+      <div class="offering-grid">
+        <button class="offering-card" data-offering="flower">
+          <span class="offering-emoji">🌺</span>
+          <span>Flower</span>
+        </button>
+        <button class="offering-card" data-offering="diya">
+          <span class="offering-emoji">🪔</span>
+          <span>Diya</span>
+        </button>
+        <button class="offering-card" data-offering="banana">
+          <span class="offering-emoji">🍌</span>
+          <span>Banana</span>
+        </button>
+        <button class="offering-card" data-offering="modak">
+          <span class="offering-emoji">🍬</span>
+          <span>Modak</span>
+        </button>
+        <button class="offering-card" data-offering="durva">
+          <span class="offering-emoji">🌿</span>
+          <span>Durva</span>
+        </button>
+      </div>
+
+      <p id="offering-message" class="offering-message hidden">Your offering has been received with devotion 🙏</p>
+
+      <button id="clear-offerings" class="btn btn-outline">🗑️ Clear Offerings</button>
+    </div>
+  </section>
+
+  <!-- ================= AARTI ================= -->
+  <section id="aarti" class="section">
+    <div class="section-inner">
+      <h2 class="section-title">🪔 Aarti · Divine Light</h2>
+      <p class="section-lead">Light the diya and let its glow fill the temple.</p>
+
+      <div class="aarti-stage">
+        <div class="aarti-rays"></div>
+        <button id="aarti-diya" aria-label="Light the Aarti diya">
+          <div class="diya-body">🪔</div>
+          <div class="diya-flame"></div>
+        </button>
+        <p id="aarti-text" class="aarti-text hidden">🙏 Jai Ganesh Deva 🙏</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL BLESSING ================= -->
+  <section id="final" class="section">
+    <div class="final-aura"></div>
+    <div class="section-inner">
+      <h2 class="final-title">🙏 Ganpati Bappa Morya! 🙏</h2>
+      <p class="final-text">
+        May Lord Ganesha remove obstacles and fill your life with
+        wisdom, happiness and prosperity.
+      </p>
+      <p class="final-icons">🐘 ✨ 🌺 🪔 🙏</p>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <p>Made with ❤️ and devotion</p>
+    <p class="footer-sub">Ganesh Chathurthi · Digital Temple Experience</p>
+  </footer>
+
+</main>
+
+<!-- ================= AUDIO ELEMENTS ================= -->
+<audio id="audio-bg" src="assets/audio/devotional.mp3" loop preload="none"></audio>
+<audio id="audio-bell" src="assets/audio/bell.mp3" preload="none"></audio>
+<audio id="audio-flower" src="assets/audio/flower.mp3" preload="none"></audio>
+<audio id="audio-diya" src="assets/audio/diya.mp3" preload="none"></audio>
+<audio id="audio-offering" src="assets/audio/offering.mp3" preload="none"></audio>
+<audio id="audio-aarti" src="assets/audio/aarti.mp3" preload="none"></audio>
+
+<!-- ================= BACKGROUND VIDEO (hidden shrine loop, toggled) ================= -->
+<div id="video-wrap" class="hidden">
+  <video id="bg-video" src="assets/video/ganesh.mp4" loop playsinline></video>
+  <button id="video-close" aria-label="Close video">✕</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
